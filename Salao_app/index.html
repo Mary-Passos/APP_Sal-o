@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salão da Tia Loira</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/gemini-svg.svg">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-scissors"></i>
+                <h1>Salão da Tia Loira</h1>
+            </div>
+            <p class="subtitle">Seu momento de beleza com estilo!</p>
+        </header>
+
+        <!-- Horário de Funcionamento -->
+        <div class="info-banner">
+            <i class="fas fa-clock"></i>
+            <span>Funcionamento: 08:00 às 20:00</span>
+        </div>
+
+        <!-- Formulário de Agendamento -->
+        <form id="agendamentoForm" class="agendamento-form">
+            <div class="form-group">
+                <label for="nome">
+                    <i class="fas fa-user"></i> Nome Completo
+                </label>
+                <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+            </div>
+
+            <div class="form-group">
+                <label for="telefone">
+                    <i class="fas fa-phone"></i> Telefone
+                </label>
+                <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+            </div>
+
+            <div class="form-group">
+                <label for="servico">
+                    <i class="fas fa-cut"></i> Tipo de Atendimento
+                </label>
+                <select id="servico" name="servico" required>
+                    <option value="">Selecione um serviço</option>
+                    <option value="Cabelo">💇‍♀️ Cabelo</option>
+                    <option value="Chapinha">🔥 Chapinha</option>
+                    <option value="Unhas">💅 Unhas</option>
+                    <option value="Maquiagem">🎨 Maquiagem</option>
+                    <option value="Depilação">✨ Depilação</option>
+                    <option value="Manicure/Pedicure">💖 Manicure/Pedicure</option>
+                    <option value="Progressiva">🌟 Progressiva</option>
+                    <option value="Penteado">👑 Penteado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="data">
+                    <i class="fas fa-calendar-day"></i> Data
+                </label>
+                <input type="date" id="data" name="data" required>
+            </div>
+
+            <div class="form-group">
+                <label for="horario">
+                    <i class="fas fa-clock"></i> Horário (Disponíveis)
+                </label>
+                <select id="horario" name="horario" required>
+                    <option value="">Selecione um horário disponível</option>
+                    <!-- Horários serão preenchidos via JavaScript -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="observacoes">
+                    <i class="fas fa-pen"></i> Observações (opcional)
+                </label>
+                <textarea id="observacoes" name="observacoes" rows="3" placeholder="Alguma observação especial?"></textarea>
+            </div>
+
+            <button type="submit" class="btn-agendar">
+                <i class="fab fa-whatsapp"></i> Agendar e Enviar para WhatsApp
+            </button>
+        </form>
+
+        <!-- Lista de Agendamentos -->
+        <div class="agendamentos-section">
+            <h2><i class="fas fa-list"></i> Agendamentos Realizados</h2>
+            <div id="listaAgendamentos" class="lista-agendamentos">
+                <p class="empty-message">Nenhum agendamento realizado ainda.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Salão da Tia Loira - Todos os direitos reservados</p>
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
