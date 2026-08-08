@@ -1,0 +1,135 @@
+Documentação Técnica - Projeto "Salão da Tia Loira"
+
+1. Visão Geral do Projeto
+-------------------------
+Nome do projeto: Salão da Tia Loira
+Tipo: Aplicação web estática para agendamento de serviços de salão
+Propósito: Permitir que clientes preencham um formulário de agendamento, visualizem compromissos marcados e enviem o pedido via WhatsApp.
+
+2. Tecnologias Utilizadas
+-------------------------
+- HTML5: estrutura da página e formulários.
+- CSS3: estilo visual, layout responsivo, animações simples.
+- JavaScript (ES6): lógica de preenchimento de horários, validação de dados, persistência local e integração com WhatsApp.
+- Font Awesome: ícones usados na interface.
+- LocalStorage: armazenamento de agendamentos no navegador.
+
+3. Estrutura de Arquivos
+------------------------
+- index.html: página principal com formulário de agendamento, lista de agendamentos e informações do salão.
+- CSS/style.css: estilos visuais e layout.
+- js/script.js: lógica do cliente para validação, cadastramento, listagem, exclusão e envio via WhatsApp.
+- assets/: imagens e ícones adicionais usados pela aplicação.
+
+4. Regras de Negócio
+--------------------
+4.1 Horário de funcionamento
+- O salão funciona das 08:00 às 20:00.
+- Os horários válidos são gerados em intervalos de 30 minutos: 08:00, 08:30, 09:00, etc., até 19:30.
+- O sistema valida que o horário escolhido esteja dentro do intervalo de funcionamento.
+
+4.2 Agendamento
+- Campos obrigatórios: nome completo, telefone, tipo de serviço, data e horário.
+- Observações são opcionais.
+- A data mínima permitida é o próximo dia útil a partir da data atual.
+- Não são aceitos agendamentos para sábado nem domingo: a data mínima pula para segunda-feira quando necessário.
+
+4.3 Serviços oferecidos
+- Cabelo
+- Chapinha
+- Unhas
+- Maquiagem
+- Depilação
+- Manicure/Pedicure
+- Progressiva
+- Penteado
+
+4.4 Validação de telefone
+- O telefone deve obedecer ao formato brasileiro: (00) 00000-0000 ou (00) 0000-0000.
+- A validação é feita com expressão regular em JavaScript.
+- O campo é automaticamente formatado durante a digitação.
+
+4.5 Exclusividade de horário
+- Cada horário deve ser único por data.
+- Antes de salvar um novo agendamento, o sistema verifica se já existe outro agendamento com a mesma data e horário.
+- Se o horário estiver ocupado, o usuário recebe um alerta solicitando outro horário.
+
+4.6 Persistência
+- Agendamentos são armazenados no LocalStorage do navegador.
+- Os dados salvos incluem: nome, telefone, serviço, data, horário, observações e um id baseado em timestamp.
+- A lista de agendamentos é recarregada a cada carregamento da página.
+
+4.7 Exclusão de agendamento
+- Cada agendamento exibido possui botão de exclusão.
+- Ao clicar, o usuário é perguntado se tem certeza antes de remover o registro.
+- Após exclusão, o LocalStorage é atualizado e a lista é refeita.
+
+4.8 Integração com WhatsApp
+- Após salvar o agendamento localmente, a aplicação abre uma nova aba com o link do WhatsApp.
+- O número configurado está em `js/script.js` na constante `WHATSAPP_NUMBER`.
+- A mensagem enviada para o WhatsApp inclui: nome, telefone, serviço, data, horário e observações.
+
+5. Requisitos Funcionais (RF)
+----------------------------
+RF01: O usuário deve conseguir preencher um formulário com o nome, telefone, serviço, data, horário e observações.
+RF02: O sistema deve oferecer apenas horários dentro do período de funcionamento do salão.
+RF03: O sistema deve impedir agendamentos em datas passadas, sábados e domingos.
+RF04: O sistema deve validar o formato do telefone.
+RF05: O sistema deve verificar conflito de horário antes de salvar.
+RF06: O agendamento deve ser salvo localmente no navegador.
+RF07: O usuário deve visualizar a lista de agendamentos realizados.
+RF08: O usuário deve poder excluir agendamentos.
+RF09: O sistema deve gerar a mensagem para envio via WhatsApp.
+
+6. Requisitos Não Funcionais (RNF)
+---------------------------------
+RNF01: A interface deve ser responsiva e adaptável a dispositivos móveis.
+RNF02: O carregamento da página deve ser rápido, usando apenas recursos estáticos.
+RNF03: A aplicação deve ser compatível com navegadores modernos que suportam LocalStorage e JavaScript.
+RNF04: A experiência deve ser intuitiva, com alertas claros e validações visíveis.
+
+7. Análise de Requisitos
+------------------------
+7.1 Usuário alvo
+- Clientes do salão que desejam agendar serviços de beleza de forma simples.
+- Funcionários que precisam receber o pedido via WhatsApp.
+
+7.2 Cenários principais
+- Cliente abre a página, escolhe um serviço, data e horário, e envia o pedido.
+- O sistema apresenta apenas horários válidos e rejeita conflitos.
+- O agendamento é listado imediatamente após o envio.
+- O cliente pode excluir um horário agendado.
+- O pedido é enviado para o WhatsApp para confirmação interna.
+
+7.3 Restrições
+- Não há backend: os dados ficam no navegador do cliente.
+- Depende de conexão à internet para abrir o WhatsApp Web ou o aplicativo WhatsApp.
+- O número de WhatsApp deve ser configurado manualmente no arquivo `js/script.js`.
+
+8. Design de Fluxo de Dados
+--------------------------
+1. Usuário preenche o formulário.
+2. JavaScript valida dados obrigatórios e formato de telefone.
+3. JavaScript valida data mínima e horário de funcionamento.
+4. JavaScript verifica se o horário está disponível no LocalStorage.
+5. Se válido, o agendamento é salvo no LocalStorage e a lista é atualizada.
+6. O sistema abre o link do WhatsApp com a mensagem formatada.
+7. O usuário envia a mensagem através do aplicativo ou WhatsApp Web.
+
+9. Possíveis Melhorias Futuras
+-----------------------------
+- Adicionar backend para salvar e sincronizar agendamentos entre usuários.
+- Implementar autenticação para administrar agendamentos.
+- Melhorar o controle de horários livres por serviço ou profissional.
+- Permitir edição de agendamentos existentes.
+- Adicionar calendário visual para seleção de data e bloqueio automático de feriados.
+- Salvar histórico de agendamentos e status (pendente, confirmado, cancelado).
+- Validar o telefone com máscara mais robusta e suporte a DDI.
+
+10. Observações Técnicas
+------------------------
+- O diretório de estilos está como `CSS/`, mas a referência em `index.html` usa `css/style.css`. No Windows isso funciona, mas em ambientes sensíveis a maiúsculas/minúsculas pode ser necessário ajustar o nome da pasta ou o caminho.
+- A URL do WhatsApp usa `https://wa.me/` para abrir o chat diretamente.
+- A formatação de data mínima usa `toISOString().split('T')[0]` para gerar o valor aceito pelo input `type=date`.
+
+Documentação gerada com base na análise dos arquivos existentes.
